@@ -4,7 +4,8 @@ from time import time
 Experiment constants and benchmarking methods
 """
 MAX_RANDOM_INT = 100
-MAX_DATA_SIZE = 996
+MAX_DATA_SIZE = 2000
+STEP = 10
 NUMBER_OF_RUNS = 5
 MICROSECONDS_MULTIPLIER = 10e6
 SCALE = 4
@@ -12,7 +13,7 @@ SCALE = 4
 
 def run_experiment1(func, filename):
     with open(f'data/{filename}.csv', 'w', newline='\n') as csvfile:
-        writer = csv.writer(csvfile, delimiter=' ', quoting=csv.QUOTE_MINIMAL)
+        writer = csv.writer(csvfile, delimiter=' ')
         for i in range(1, MAX_DATA_SIZE):
             row = f'{i},{experiment1_fixed_n(i, NUMBER_OF_RUNS, func)}'
             writer.writerow(row)
@@ -33,7 +34,7 @@ def experiment1_fixed_n(data_size: int, reps: int, func) -> float:
 def run_experiment2(func, filename):
     with open(f'data/{filename}.csv', 'w', newline='\n') as csvfile:
         writer = csv.writer(csvfile, delimiter=' ', quoting=csv.QUOTE_MINIMAL)
-        for i in range(1, MAX_DATA_SIZE):
+        for i in range(1, MAX_DATA_SIZE, STEP):
             row = f'{i},{experiment2_fixed_n(i, NUMBER_OF_RUNS, func)}'
             writer.writerow(row)
 
