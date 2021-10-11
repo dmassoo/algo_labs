@@ -6,8 +6,7 @@ There are two ways to conduct:
 """
 
 import sys
-import numpy as np
-from components import experiment as e, algorithms as a
+from components.lab1 import algorithms as a, experiment as e
 
 sys.setrecursionlimit(2000000)
 
