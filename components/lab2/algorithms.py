@@ -1,5 +1,9 @@
-#   Part I
+import random as rd
+import numpy.random as nrd
+from tqdm import tqdm
 
+
+#   Part I
 
 def f1(x):
     return x ** 3
@@ -18,42 +22,39 @@ def exhaustive_search(func, interval: (float, float), eps: float) -> (float, flo
     check_params(interval, eps)
     a, b = interval
     n = (b - a) / eps
-    min_val = func(a)
+    x_min = a
+    y_min = func(a)
     c = a
-    f_c = 0
     iters = 0
     while c <= b:
         iters += 1
         f_c = func(c)
-        if f_c < min_val:
-            min_val = f_c
+        if f_c < y_min:
+            y_min = f_c
+            x_min = c
         c += (b - a) / n
-    return c, f_c, iters, iters
+    return x_min, y_min, iters, iters
 
 
 def dichotomy(func, interval: (float, float), eps: float) -> (float, float, int, int):
     check_params(interval, eps)
     a, b = interval
-    d = eps / 5
+    d = eps / 2
     c = 0
     iters = 0
     calcs = 0
-    f_min = 0
     while abs(b - a) >= eps:
         iters += 1
-
-        c = (b - a) / 2
+        c = (a + b) / 2
         y1 = func(c - d)
         y2 = func(c + d)
         calcs += 2
 
         if y1 < y2:
             b = c
-            f_min = y1
         else:
             a = c
-            f_min = y2
-    return c, f_min, calcs, iters
+    return c, func(c), calcs, iters
 
 
 def golden_section(func, interval: (float, float), eps: float) -> (float, float, int, int):
@@ -95,3 +96,32 @@ def check_params(interval: (float, float), eps: float):
 
 
 #     Part II
+
+# Data Generation and Functions definition
+
+def generate_random_coeffs():
+    rd.seed(1000)
+    return rd.random(), rd.random()
+
+
+def generate_data(alpha, beta):
+    deltas = nrd.normal(0, 1, 101)
+    X = [k / 100 for k in range(101)]
+    Y = [alpha * X[k] + beta + deltas[k] for k in range(101)]
+    return X, Y
+
+
+def f4(x, a, b):
+    return a * x + b
+
+
+def f5(x, a, b):
+    return a / (1 + b * x)
+
+
+def generative_line(X, a, b):
+    return [a * x_k + b for x_k in X]
+
+
+def generative_line_rational(X, a, b):
+    return [a / (1 + b * x_k) for x_k in X]
