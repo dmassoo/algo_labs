@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import scipy.optimize
+import numpy as np
 from components.lab2.algorithms import *
 
 # Part I
@@ -53,7 +54,7 @@ def generate_data_by_func(func, X, a_b):
 alpha, beta = generate_random_coeffs()
 
 X, Y = generate_data(alpha, beta)
-x_0 = np.array([0.5, 0.5])
+x_0 = np.array([1, 1])
 
 # Linear
 Y_generative_line = generative_line(X, alpha, beta)
@@ -77,7 +78,7 @@ min_result_CD_r = scipy.optimize.minimize(rational_loss, x_0, method='Powell', o
 
 
 # Data Preparation for visualization
-Y_ES_l = generate_data_by_func(f4, X, min_result_ES_l.x)
+Y_ES_l = generate_data_by_func(f4, X, min_result_ES_l)
 Y_NM_l = generate_data_by_func(f4, X, min_result_NM.x)
 Y_CD_l = generate_data_by_func(f4, X, min_result_CD.x)
 
