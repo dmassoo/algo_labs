@@ -44,8 +44,11 @@ nx.draw_networkx_edge_labels(G, pos, edge_labels=weights)
 
 for _ in range(5):
     start, finish = choose_cells()
+    plt.figure(figsize=(15, 15))
+    nx.draw_networkx(G, pos=pos, node_size=100)
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=weights)
     path = nx.astar_path(G, start, finish)
     edges = [(a, b) for a, b in zip(path, path[1:])]
     print('edges: ', edges)
     nx.draw_networkx_edges(G, pos=pos, edgelist=edges, edge_color="r", width=3)
-plt.show()
+    plt.show()
