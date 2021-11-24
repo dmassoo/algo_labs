@@ -38,6 +38,7 @@ densities = np.linspace(number_of_v, number_of_v*(number_of_v-1)/2, 10)
 ts = []
 nes = []
 for nv in densities:
+    t = 0
     for i in range(n):
         number_of_e = int(nv)
         matrix = generate_random_adjacency_matrix(number_of_v, number_of_e)
@@ -64,6 +65,7 @@ plt.show()
 ts = []
 nvs = []
 for nv in list(range(100, 350, 50)):
+    t = 0
     for i in range(n):
         number_of_e  = nv ** 2 / 5
         matrix = generate_random_adjacency_matrix(nv, number_of_e)
