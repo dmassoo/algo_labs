@@ -24,10 +24,39 @@ def mat_to_list(mat):
                 l.append(i)
         return l
 
-    adj_list = []
-    for row in mat:
-        adj_list.append(list_for_node_row_n(row))
+    adj_list = {}
+    for i in range(len(mat)):
+        adj_list[i] = list_for_node_row_n(mat[i])
     return adj_list
+
+
+def bfs_shortest_path(graph, start, goal):
+    explored = []
+
+    queue = [[start]]
+
+    if start == goal:
+        print("Same Node")
+        return
+
+    while queue:
+        path = queue.pop(0)
+        node = path[-1]
+
+        if node not in explored:
+            neighbours = graph[node]
+
+            for neighbour in neighbours:
+                new_path = list(path)
+                new_path.append(neighbour)
+                queue.append(new_path)
+
+                if neighbour == goal:
+                    print("Shortest path = ", *new_path)
+                    return
+            explored.append(node)
+
+    print("Connecting path doesn't exist")
 
 
 # Adjacency matrix and list for fixed 100 x 100 matrix with 200 edges
@@ -41,9 +70,12 @@ print(adj_list)
 G = nx.from_numpy_matrix(adj_mat)
 print('dfs connected components: ', list(nx.connected_components(G)))
 print('dfs number connected components: ', nx.number_connected_components(G))
-print('dfs: ', list(nx.dfs_edges(G, source=0)))
-print('bfs: ', list(nx.bfs_edges(G, source=0)))
+
+start = np.random.randint(0, 99)
+target = np.random.randint(start, 99)
+print(f'Starting from edge {start} to {target}')
+bfs_shortest_path(adj_list, start, target)
 
 # Visualization
-nx.draw(G, node_size=100, with_labels=True, )
+nx.draw(G, node_size=100, with_labels=True)
 plt.show()
