@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy as scipy
 
 THEORY = 'Theoretical estimates'
 EXPERIMENT = 'Experimental results'
@@ -156,8 +155,9 @@ n = data[:, 0]
 t = data[:, 1]
 data_size = np.size(t)
 approx = np.poly1d(np.polyfit(n, t, 3))
-plt.plot(approx(n), label=THEORY)
-plt.plot(t, label=EXPERIMENT, alpha=0.7)
+xs = range(1, 300, 10)
+plt.plot(xs, approx(n), label=THEORY)
+plt.plot(xs, t, label=EXPERIMENT, alpha=0.7)
 
 plt.xlabel(SIZE, fontsize=16)
 plt.ylabel(TIME_MICROSECONDS, fontsize=16)

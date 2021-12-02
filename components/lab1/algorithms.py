@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 # fixed value for polynomials
 X = 1.5
 
@@ -15,11 +17,12 @@ def my_sum(v: list) -> int:
     """
     return sum(v)
 
+
 def product(v: list) -> int:
     """
     Returns product of the vector elements
     """
-    p = 1
+    p = Decimal(1)
     for i in v:
         p *= i
     return p
@@ -53,6 +56,15 @@ def horner(v: list, x: float) -> float:
             return v[0] + x * _horner(v[1::], x)
 
     return _horner(v, x)
+
+
+def hornerf(v):
+    """
+    Horner's method iterative
+    """
+    y = v[0]
+    for i in reversed(range(len(v))):
+        y = v[i] + X * y
 
 
 def bubble_sort(v: list) -> list:

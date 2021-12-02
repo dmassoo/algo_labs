@@ -42,5 +42,4 @@ def main_all():
 
     e.run_experiment2(a.matrix_product, 'matrix_product')
 
-
-# main()
+main_all()
